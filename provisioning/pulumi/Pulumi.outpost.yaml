@@ -1,0 +1,5 @@
+encryptionsalt: v1:WjJyFlo8snQ=:v1:DsjMUoNH7E8F4xed:QTeX3lwefT3Wqvv2U6zXK5DUzhSgFQ==
+config:
+  forts:libvirtUri: qemu:///system
+  forts:seed: nocloud
+  forts:imageId: /home/steven/.cache/forts/outpost-nixos.qcow2
