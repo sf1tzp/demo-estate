@@ -1,17 +1,26 @@
+# The flux rules: path-scoped per cluster, so a cluster's key decrypts
+# only its own secrets. `fort mint` adds a cluster's rule block and its
+# recipient line in the shared flux/infrastructure rule; `fort dismantle`
+# removes them. The admin recipients are the estate's — the people (and
+# their machines) who can read every secret; add or remove one by hand,
+# in every rule.
+#
+# Recipients:
+#   age1m9g8tq5avd6fs4ymk9f4mzmujq7z7ssynscexervxjrrmy2nlglqrx397y  admin
 creation_rules:
   - path_regex: provisioning/.*\.yaml$
     age:
-      - age17lv6peg5ydkmxzyvv00qy2kd792n8m2rl5x3d2zasw0mx8esj9ls6n5628 # forts-demo
+      - age1m9g8tq5avd6fs4ymk9f4mzmujq7z7ssynscexervxjrrmy2nlglqrx397y # admin
   # BEGIN fort sops rule: outpost
   - path_regex: flux/(clusters|apps)/outpost/.*
     encrypted_regex: ^(data|stringData)$
     age:
-      - age17lv6peg5ydkmxzyvv00qy2kd792n8m2rl5x3d2zasw0mx8esj9ls6n5628 # forts-demo
-      - age1j08k3du5udklhp47v5n5g7qdc6e8nue0glcgupjx76uzx4mfyf0saqv3xn # outpost
+      - age1m9g8tq5avd6fs4ymk9f4mzmujq7z7ssynscexervxjrrmy2nlglqrx397y # admin
+      - age1l5up0s9evac4t380579v4kyayc7cn2st6nvzlnnqrnc3u6p2d92szk5z9w # outpost
   # END fort sops rule: outpost
   - path_regex: flux/infrastructure/.*
     encrypted_regex: ^(data|stringData)$
     age:
-      - age17lv6peg5ydkmxzyvv00qy2kd792n8m2rl5x3d2zasw0mx8esj9ls6n5628 # forts-demo
+      - age1m9g8tq5avd6fs4ymk9f4mzmujq7z7ssynscexervxjrrmy2nlglqrx397y # admin
       # fort-managed: one recipient per cluster
-      - age1j08k3du5udklhp47v5n5g7qdc6e8nue0glcgupjx76uzx4mfyf0saqv3xn # cluster: outpost
+      - age1l5up0s9evac4t380579v4kyayc7cn2st6nvzlnnqrnc3u6p2d92szk5z9w # cluster: outpost

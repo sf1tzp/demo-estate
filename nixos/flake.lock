@@ -8,15 +8,16 @@
       "locked": {
         "lastModified": 1793852043,
         "narHash": "sha256-G/BB7gz4saLxDjk+kv3yITRy9vUoUhMk/YlMbmQ3UvE=",
-        "ref": "refs/heads/main",
+        "owner": "streetfortress",
+        "repo": "forts",
         "rev": "4299200b2f09ddd62b237d0b1fa9d715c79fffec",
-        "revCount": 286,
-        "type": "git",
-        "url": "https://github.com/streetfortress/forts"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "https://github.com/streetfortress/forts"
+        "owner": "streetfortress",
+        "ref": "v0.0.6",
+        "repo": "forts",
+        "type": "github"
       }
     },
     "nixpkgs": {

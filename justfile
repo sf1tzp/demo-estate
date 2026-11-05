@@ -1,11 +1,16 @@
-# The estate's verbs that are not the fort CLI. Recipes run from the root
-# of the checkout wherever you invoke `just` (it searches upward).
-#
-# The fort CLI itself needs no wrapper here. The operator installs the
-# package once (`nix profile install ./nixos#fort`) and then calls
-# `fort <verb>` — scaffold, mint, provision, check, add, seed, dismantle,
-# destroy (docs/README.md in sfi/forts). This file holds only the work
-# that no verb does.
+# The estate's verbs. `just fort <verb>` runs the fort CLI from this
+# estate's own flake, so the CLI always matches the pin in nixos/flake.lock.
+# The other recipes hold the work that no verb does.
+
+# Run the fort CLI built from this estate's flake: just fort check --all
+fort +ARGS:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    system=$(nix eval --raw --impure --expr builtins.currentSystem)
+    installables=$(nix eval --raw "./nixos#packages.${system}" --apply \
+      'p: builtins.concatStringsSep " " (map (n: "./nixos#" + n) (builtins.filter (n: n == "fort" || builtins.substring 0 5 n == "fort-") (builtins.attrNames p)))')
+    # shellcheck disable=SC2086  # one installable per word, by construction
+    nix shell $installables -c fort {{ARGS}}
 
 # A fort renders its own read-only ops kubeconfig at
 # /var/lib/sfi/kubeconfig-ro (modules/ops/ops-kubeconfig.nix): the ops-ro
@@ -29,7 +34,7 @@ fetch-kubeconfig host:
     # and fort dismantle keep both files current, and `fort check --all`
     # fails a stale ssh_config. So this recipe needs no address and no
     # user name of its own.
-    [ -f mesh/ssh_config ] || { echo "mesh/ssh_config is not there — run: fort ssh-config --write" >&2; exit 1; }
+    [ -f mesh/ssh_config ] || { echo "mesh/ssh_config is not there — run: fort ssh-config" >&2; exit 1; }
     mkdir -p ~/.kube
     scp -q -F mesh/ssh_config -o UserKnownHostsFile=mesh/known_hosts \
       "{{ host }}:/var/lib/sfi/kubeconfig-ro" ~/.kube/{{ host }}.config

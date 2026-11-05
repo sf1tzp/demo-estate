@@ -3,13 +3,13 @@
     "outpost": {
       "wg_vpn_ip": "10.10.0.10",
       "wg_endpoint_ip": "192.168.122.10",
-      "public_key": "KlwYOeQ9fTEqGPmwCF3OpSj/9ZRWYOa7Og2ttEn+SA8="
+      "public_key": "eBNLOMu0BQN/p9eE10+rJ6Qucb1OlXfbycQbjmfCODE="
     }
   },
   "clients": {
     "forts-demo": {
-      "public_key": "I1Mvx6h5/fvNcvBaxOksdwquSbgjEKAvrIV0qetzlHE=",
-      "wg_vpn_ip": "10.10.0.254"
+      "wg_vpn_ip": "10.10.0.254",
+      "public_key": "oSJpf7l15iMhuUjuEsisOIW7X+9xLypXvAexSUxo4m4="
     }
   }
 }

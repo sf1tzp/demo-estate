@@ -1,9 +1,6 @@
-name = "demo-estate"
-
-
-
+name = "demo"
 operator_keys = [
-	"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINiXn49FA79aafBjrVaq/95/jDiCt0p+nM8b5VY8ZZ1X steven@forts-demo",
+  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINiXn49FA79aafBjrVaq/95/jDiCt0p+nM8b5VY8ZZ1X steven@forts-demo",
 ]
 
 [source]
@@ -11,4 +8,3 @@ repo = "https://github.com/sf1tzp/demo-estate"
 
 [mesh]
 cidr = "10.10.0.0/24"
-

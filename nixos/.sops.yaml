@@ -7,9 +7,9 @@ creation_rules:
   # BEGIN fort sops rule: outpost
   - path_regex: secrets/outpost\.yaml$
     age:
-      - age17lv6peg5ydkmxzyvv00qy2kd792n8m2rl5x3d2zasw0mx8esj9ls6n5628 # admin
-      - age174ee678ng98fynpxdf09570u80qz2ettg7c2z3ey9wg7r59pdqys2pa3xu
+      - age1m9g8tq5avd6fs4ymk9f4mzmujq7z7ssynscexervxjrrmy2nlglqrx397y # admin
+      - age1magjvu4cgj3scdpj07evju2xny8tsycrztjzlt59x4qazrx733esq5f6jt
   # END fort sops rule: outpost
   - path_regex: secrets/.*\.yaml$
     age:
-      - age17lv6peg5ydkmxzyvv00qy2kd792n8m2rl5x3d2zasw0mx8esj9ls6n5628 # admin
+      - age1m9g8tq5avd6fs4ymk9f4mzmujq7z7ssynscexervxjrrmy2nlglqrx397y # admin

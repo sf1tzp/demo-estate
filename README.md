@@ -1,103 +1,44 @@
-<p align="center">
-  <img src="readme-images/examples-banner.png" alt="Estate Examples" height="160">
-</p>
+# demo
 
-<p align="center">
-    Try out <em><a href="https://github.com/streetfortress/forts">forts</a></em> using one of these <strong>example estates.</strong>
-</p>
-
-An _estate_ is a git repository declaring one or more _forts_:
-- `estate.toml` declares the **Mesh** network CIDR and source repository URL.
-- `forts/<fort>.toml` declares a fort's size and its place on the estate's **Mesh** network.
-
-Each _branch_ in this repository is a complete scaffolding of an estate. Clone the branch into a new repository, customize the network and fort definitions, then run `fort mint` and provision each fort. You'll end up with a complete environment that continuously reconciles itself against your estate repo.
-
-Each branch has a customized README.md (AI Generated) tailored to the example scenario. Have fun building! - sf1tzp
-
----
-
-## Repo Structure
-
-Each branch of this repository is a complete estate: clone it, make it
-yours, mint it, and deploy. This branch, `main`, is the smallest one — a
-single fort on a libvirt hypervisor.
-
-| branch | what it shows |
-| --- | --- |
-| `main` | the minimal estate: one plain fort, the anonymous (public https) clone route |
-| `link-side-a` | an estate whose fort joins another estate's mesh — the linking side |
-| `link-side-b` | the estate being linked to — the recording side |
-
-
-## What's in this branch
-
-One estate named `example`, with one fort:
-
-- `estate.toml` — the estate's facts: its name, its git URL, the mesh
-  (`10.10.0.0/24`), the operator keys.
-- `forts/outpost.toml` — the fort's declaration: a 2-vCPU lab VM on a
-  libvirt hypervisor.
-- `nixos/`, `flux/`, `mesh/`, `provisioning/` — everything `fort init`
-  and `fort scaffold` render. Nothing here was written by hand except
-  this README and the manifest.
-
-## Make it yours
-
-1. Clone this branch and push it to your own repository **as `main`** —
-   a deployed fort reconciles its repo's main branch, so the example
-   must become your main, not live beside it.
-
-   ```
-   git clone -b main https://github.com/streetfortress/estate-examples my-estate
-   cd my-estate && git remote set-url origin <your repo> && git push -u origin main
-   ```
-
-2. Edit `estate.toml`: set `[source] repo` to your repository's URL, and
-   replace `operator_keys` with your device's SSH public key.
-3. Replace the admin recipient (an age public key, `age1…`) in
-   `.sops.yaml` and `nixos/.sops.yaml` with your own. `age-keygen` makes
-   one; keep the private half safe, it decrypts every secret you mint.
-4. Point `forts/outpost.toml`'s `[libvirt] uri` and `ip` at your hypervisor
-   and network. If you change other values later, note that
-   `fort scaffold` never overwrites: delete `nixos/hosts/outpost/` and
-   `flux/clusters/outpost/` first, then re-run `fort scaffold outpost --write`.
-5. Mint the fort's identity, then provide the two files init cannot
-   write (`provisioning/secrets.yaml` per `provisioning/README.md`, and
-   the Alertmanager webhook secret):
-
-   ```
-   fort mint outpost
-   ```
-
-6. Commit, push, then build and deploy:
-
-   ```
-   fort image outpost
-   fort provision outpost --image ~/.cache/forts/outpost-nixos.qcow2
-   ```
-
-## The expected pre-mint state
-
-Until you mint, `fort check --all` fails with exactly three errors, and
-that is by design — each one names its repair:
+An estate: the forts declared here, built on sfi/forts
+as a flake input. Rendered by `fort init`. The CLI handbook is sfi/forts'
+`docs/`; this file is yours.
 
 ```
-✗ flux/infrastructure/configs: kustomize build: … alertmanager-edge-config.sops.yaml: no such file or directory
-✗ mesh/ssh_config: missing — `fort ssh-config --write` renders it from peers.json + the manifests
-✗ nixos/secrets/outpost.yaml: sfi.ops.console.enable is set … but deployer-password-hash is absent … Mint it: fort mint outpost --write
+AGENTS.md                    the rules for an agent working in this estate: the verbs, the invariants, what done means
+estate.toml                  what this checkout is: its name, its git URL, its mesh and zone, its hubs by role (if any)
+forts/<host>.toml            the manifests: one file per fort, the declaration
+nixos/
+  flake.nix                  the hosts, auto-discovered under hosts/; sfi/forts as inputs.forts
+  hosts/<host>/              default.nix + secrets.nix, rendered by fort scaffold, then yours
+  secrets/<host>.yaml        the fort's sops file, written by fort mint
+  certs/ca-root.pem          the estate's CA root, when it runs a private CA — provide it
+  .sops.yaml                 the per-host rules
+flux/
+  clusters/<host>/           the FluxInstance and the cluster's Kustomizations
+  apps/<host>/               the apps root: what fort add renders into it, the estate's own flux, or a layer's
+  hub/<hub host>/            what this estate asks of its monitoring hub, one file per fort
+  infrastructure/            the shared layer every cluster applies
+mesh/
+  peers.json                 who is on the mesh and where; mint adds, dismantle removes
+  ssh_config, known_hosts    rendered from peers.json + the manifests
+provisioning/
+  secrets.yaml               the fleet secrets — create it (provisioning/README.md)
+  pulumi/                    the project file, Pulumi.<host>.yaml per stack, state/
+.sops.yaml                   the flux rules: one per cluster, plus the shared infrastructure rule
+justfile                     the estate's own verbs: fort (the CLI from this flake), fetch-kubeconfig (a fort's read-only ops kubeconfig), updatekeys (the sops files)
 ```
 
-The second and third disappear when mint runs; the first when you seed
-the webhook secret. CI on this branch proves the path: on every push it
-mints an ephemeral identity, seeds a placeholder webhook, and runs
-`fort check --all --eval` — green means the ritual above lands on a
-clean estate.
+## The first fort
 
-## Reading on
-
-The CLI handbook lives in the forts repository:
-[getting started](https://github.com/streetfortress/forts/blob/main/docs/README.md),
-one page per verb under
-[docs/reference](https://github.com/streetfortress/forts/blob/main/docs/reference).
-
-
+1. `git add -A`, then `nix flake lock ./nixos` — pin the framework. Nix refuses a
+   flake with untracked files.
+2. Provide `nixos/certs/ca-root.pem` when the estate runs a private CA, and seed
+   `flux/infrastructure/configs/monitoring/alertmanager-edge-config.sops.yaml`
+   (the edge Alertmanager's webhook; `sops` it under the shared rule).
+3. Create `provisioning/secrets.yaml` (provisioning/README.md).
+4. Write `forts/<host>.toml` (sfi/forts `docs/manifest.md`), then
+   `fort scaffold <host>`, `fort mint <host>`, a PR,
+   `fort image <host>`, `fort provision <host> --image <path>`.
+5. `just fetch-kubeconfig <host>` — the fort's read-only ops kubeconfig,
+   to read the cluster from here.

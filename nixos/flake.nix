@@ -1,12 +1,12 @@
 {
-  description = "example — the NixOS configurations of its forts, built on sfi/forts";
+  description = "demo — the NixOS configurations of its forts, built on sfi/forts";
 
   inputs = {
     # The framework: the modules a fort is made of, and the fort CLI. Pin
     # it in flake.lock; `nix flake update forts` is the update, `fort
     # check` reports drift. Develop against a local checkout with
     # `--override-input forts path:../forts`.
-    forts.url = "git+https://github.com/streetfortress/forts";
+    forts.url = "github:streetfortress/forts/v0.0.6";
     # nixpkgs and sops-nix are the framework's pins: one nixpkgs for the
     # modules and the hosts, so a fort builds against what the framework
     # was tested on.

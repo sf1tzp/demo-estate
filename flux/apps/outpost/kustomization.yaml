@@ -7,4 +7,3 @@ resources:
   # pre-merge guard. The estate's flux, or a layer's verb, appends the
   # workloads below it.
   - sops-canary.yaml
-  - grafana

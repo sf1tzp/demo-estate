@@ -15,5 +15,5 @@ metadata:
   namespace: flux-system
 data:
   CLUSTER_NAME: outpost
-  ESTATE_NAME: demo-estate
+  ESTATE_NAME: demo
   MESH_IP: 10.10.0.10

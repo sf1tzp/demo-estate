@@ -1,4 +1,4 @@
-encryptionsalt: v1:WjJyFlo8snQ=:v1:DsjMUoNH7E8F4xed:QTeX3lwefT3Wqvv2U6zXK5DUzhSgFQ==
+encryptionsalt: v1:jmovPLTdXDw=:v1:MbtcvqaJE0CfFg3v:W0kFjbI0m4VWVOrXea0VfjiNa8zQ6w==
 config:
   forts:libvirtUri: qemu:///system
   forts:seed: nocloud
