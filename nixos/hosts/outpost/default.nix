@@ -94,8 +94,8 @@
   systemd.network.networks."10-lan" = {
     matchConfig.Name = "en*";
     address = [ "192.168.122.10/24" ];
-    gateway = [ "10.0.0.1" ];
-    dns = [ "10.0.0.2" "8.8.8.8" ];
+    gateway = [ "192.168.122.1" ];
+    dns = [ "192.168.122.1" ];
   };
   # Single-node server on the sqlite datastore ([cluster] datastore in
   # the manifest): a single node buys nothing from etcd, and k3s-server
