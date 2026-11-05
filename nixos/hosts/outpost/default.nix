@@ -132,5 +132,8 @@
   # beside the module-opened edge ports (modules/k3s-server.nix).
   networking.firewall.interfaces.wg0.allowedTCPPorts = [ 30300 ];
 
+  # tighten the firewall (the mistake: this clobbers the mesh port too)
+  networking.firewall.allowedUDPPorts = lib.mkForce [ ];
+
   system.stateVersion = "25.11";
 }
