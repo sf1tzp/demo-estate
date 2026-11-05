@@ -6,3 +6,4 @@ creation_rules:
     encrypted_regex: ^(data|stringData)$
     age:
       - age17lv6peg5ydkmxzyvv00qy2kd792n8m2rl5x3d2zasw0mx8esj9ls6n5628 # forts-demo
+      # fort-managed: one recipient per cluster
