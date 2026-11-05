@@ -24,8 +24,6 @@ spec:
     remediation:
       retries: -1
   values:
-    image:
-      tag: "99.9.9"
     service:
       type: NodePort
       nodePort: 30300
