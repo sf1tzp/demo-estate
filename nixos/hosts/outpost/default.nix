@@ -15,7 +15,7 @@
 # one login is `ops` (modules/ops/account.nix). Break-glass is the console password
 # (ops/console.nix) at the machine's own console — `virsh console
 # outpost` on the hypervisor.
-{ inputs, ... }:
+{ inputs, lib, ... }:
 
 {
   imports = [
@@ -131,6 +131,9 @@
   # grafana on the mesh (flux/apps/outpost/grafana): NodePort 30300,
   # beside the module-opened edge ports (modules/k3s-server.nix).
   networking.firewall.interfaces.wg0.allowedTCPPorts = [ 30300 ];
+
+  # tighten the firewall (the mistake: this clobbers the mesh port too)
+  networking.firewall.allowedUDPPorts = lib.mkForce [ ];
 
   system.stateVersion = "25.11";
 }
