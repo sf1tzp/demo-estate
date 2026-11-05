@@ -128,5 +128,9 @@
   # split per-host, so this host only declares the keys it actually carries —
   # no declared-but-absent secrets to fail activation.
 
+  # grafana on the mesh (flux/apps/outpost/grafana): NodePort 30300,
+  # beside the module-opened edge ports (modules/k3s-server.nix).
+  networking.firewall.interfaces.wg0.allowedTCPPorts = [ 30300 ];
+
   system.stateVersion = "25.11";
 }
