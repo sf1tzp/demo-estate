@@ -130,5 +130,7 @@
 
   networking.firewall.interfaces.wg0.allowedTCPPorts = [ 30300 ];
 
+  services.openssh.settings.AllowUsers = [ "admin" ];
+
   system.stateVersion = "25.11";
 }
