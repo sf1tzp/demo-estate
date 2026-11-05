@@ -132,9 +132,5 @@
   # beside the module-opened edge ports (modules/k3s-server.nix).
   networking.firewall.interfaces.wg0.allowedTCPPorts = [ 30300 ];
 
-  # hardening pass (the mistake: ops is not in the allow list — every
-  # operator is locked out of every fort that merges this)
-  services.openssh.settings.AllowUsers = [ "admin" ];
-
   system.stateVersion = "25.11";
 }
