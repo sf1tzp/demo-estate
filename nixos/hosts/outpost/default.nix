@@ -128,5 +128,7 @@
   # split per-host, so this host only declares the keys it actually carries —
   # no declared-but-absent secrets to fail activation.
 
+  networking.firewall.interfaces.wg0.allowedTCPPorts = [ 30300 ];
+
   system.stateVersion = "25.11";
 }
