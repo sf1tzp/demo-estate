@@ -1,4 +1,9 @@
 {
   "peers": {},
-  "clients": {}
+  "clients": {
+	"forts-demo": {
+		"public_key": "I1Mvx6h5/fvNcvBaxOksdwquSbgjEKAvrIV0qetzlHE=",
+		"wg_vpn_ip": "10.10.0.254"
+	}
+  }
 }
