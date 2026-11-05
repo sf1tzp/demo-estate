@@ -8,5 +8,7 @@ disk = "40G"
 [libvirt]
 uri = "qemu:///system"   
 ip = "192.168.122.10"   
+lan_gateway = "192.168.122.1"
+lan_dns = ["192.168.122.1"]
 
 [cluster]   # k3s + flux — the workload beats need a cluster fort
