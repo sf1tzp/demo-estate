@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: alertmanager-edge
+    namespace: monitoring
+stringData:
+    alertmanager.yaml: ENC[AES256_GCM,data:8ENiwoe0StYD4QzEs8KWF11q/froIh3ZSC8m7Ua7LifVD3+xDEOTLiaB7gHBYuiMpQCqcWdt,iv:Ju0CvP9qimXvC1rRFUB2qscaAptQWn6Mthb3AMDcq1g=,tag:ZL7m8oxzZ3DN33Fs+BiImg==,type:str]
+sops:
+    age:
+        - enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBlbnh1RlJiN1Nya0k3eHE4
+            SzB2Wm92eHZkcEdGVWhyTGtrWlJhTlJlRldZCnhvdW1rZlphSDVxSXVzdDBNL1hX
+            U2RKazBnUTV3aWhmekZoL1l0aVJESTAKLS0tIEZYenU0bHBQc3hEa0JvdkQ2UjNB
+            bzBuRjFKL0I3NUUvWGx0MWROeTdxZG8KlTVFzdwpPLgQOJJPoBaraP99kDJ6+76J
+            HGAB9/Ftv6S6WIae1xt3FL6ZqxuaeilaIO1bmCoOo2PhMxwp5eQEFg==
+            -----END AGE ENCRYPTED FILE-----
+          recipient: age17lv6peg5ydkmxzyvv00qy2kd792n8m2rl5x3d2zasw0mx8esj9ls6n5628
+        - enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBiQ00yb0xvTnU0LzZoSU4w
+            RDQ5YkZ6UkFHOGMvODNQR2luYzN0TDA1VlU0CnJFWXNhUklzcUxwRm5PcThLVndL
+            L3V2ZjNyZlUwYndTR1M3aUM4dVAvT2sKLS0tIE9QSDRodlRtYWMzd0pVNFZWWXdT
+            M0w3U3p5Z3RoQy9vclhyM0lSNUx0bDQKkZ5KACQOahZlTBCTlNPgXNNPFh4sq6CX
+            PEXthJI9XFN1ZdNk/YfhaGkMOSuEfkiZcvQOmUPRM7KKof9EfCO2Hw==
+            -----END AGE ENCRYPTED FILE-----
+          recipient: age1j08k3du5udklhp47v5n5g7qdc6e8nue0glcgupjx76uzx4mfyf0saqv3xn
+    encrypted_regex: ^(data|stringData)$
+    lastmodified: "2026-11-05T09:48:42Z"
+    mac: ENC[AES256_GCM,data:jEsKcXjgnSg2IcO+fqcaLPJuxG0RreuagIvmoGU5idiZwLQdOpyuYmafzdhFEEbO242WM3gth9HRTmApx9Zgb84Zhv8x1a2pjix5PEOzcp9IM4EdYl2ICfiP22QX3a5XFCMN4T1bvLNUOQRnvMqwNshmiiB0iaueEBZecsum0Co=,iv:SeaCYkf9UbR6V5uelehO9iS59UZ/LEdDDi1br5T0sQc=,tag:tKSjOnoy5/f8AEDshRLB9A==,type:str]
+    version: 3.13.3
